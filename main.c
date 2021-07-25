@@ -53,4 +53,75 @@ void fillSrc()
     top[0] = 2;
 }
 
+//Menambahkan dan mengurangi nilai yang berada pada tiang
+void push(int x)
+{
+	int pl;
+    chooseWhereToPush:
+    printf("Pilih tiang yang akan dimasukkan: ");
+    scanf("%d", &pl);
+    printf("\n");
+    if(p[pl].stack[top[pl]] > x || p[pl].stack[top[pl]]==0) { 
+        top[pl]++;
+        p[pl].stack[top[pl]] = x;
+    }
+    else {
+        printf("Tidak bisa dimasukkan, coba lagi.\n");
+        goto chooseWhereToPush;
+    }
+}
+
+int pop() {
+    int pl, x;
+    chooseWhereToPop:
+    printf("Pilih tiang yang akan dipindahkan : "); 
+    scanf("%d", &pl);
+    printf("\n");
+    if(p[pl].stack[top[pl]] == -1) {
+        printf("Tiang kosong, piring tidak bisa dipindahkan, coba lagi.\n");
+        goto chooseWhereToPop;
+    }
+    
+    x = p[pl].stack[top[pl]];
+    p[pl].stack[top[pl]] = 99;
+    top[pl]--;
+    return x;
+}
+
+//Menampilkan tampilan yang nantinya akan dipanggil oleh display()
+void displaylevel(int level)
+{
+    int i;
+    for(i=0; i<3; i++)
+    {
+        if(p[i].stack[level] == 99 || p[i].stack[level] == 0) {
+        	printf("[ ]\t");
+        }
+        else {
+        	printf("[%d]\t",p[i].stack[level]);
+        }
+    }
+    printf("\n");         
+}    
+
+//Menampilkan tampilan yang telah dipanggil melalui displaylevel()
+void display()
+{
+    
+    int i;
+    for(i=2; i>=0; i--)
+    {
+        displaylevel(i);
+    }
+}    
+
+ //Menampilkan keadaan game saat menang
+int gameWinCondition() {
+    if(p[2].stack[0]==3 && p[2].stack[1]==2 && p[2].stack[2]==1) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}
 
