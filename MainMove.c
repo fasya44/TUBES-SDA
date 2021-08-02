@@ -17,3 +17,13 @@ void towers(int, char, char, char);
     	towers(num, '0', '1', '2');
 	}
  
+void towers(int num, char from, char to, char aux){
+  		if (num == 1){
+        printf("\nPindahnya piring 1 dari tiang %c ke tiang %c\n", from, to);
+        return;
+    } 
+    
+	towers(num - 1, from, aux, to);
+    printf("\nPindahnya piring %d dari tiang %c ke tiang %c\n", num, from, to); 
+    towers(num - 1, aux, to, from); 
+	}
