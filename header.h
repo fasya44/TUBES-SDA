@@ -54,3 +54,7 @@ int gameWinCondition();
 /* Menampilan X dari Stack S sesuai dengan aturan main. */
 /* I.S. S tidak mungkin kosong */
 /* F.S. X adalah nilai elemen TOP */
+
+/* untuk aplikasi MainMove */
+
+void towers(int, char, char, char);
