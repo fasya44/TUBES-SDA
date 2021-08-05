@@ -10,7 +10,48 @@ struct pole
 struct pole p[3];
 
 int top[3];
+
+void CreateStack(Stack *S)
+{
+    Top(*S) = Nil;
+    Count(*S) = 0;
+}
  
+bool IsEmpty(Stack S)
+{
+    return Top(S) == Nil;
+}
+ 
+Address Allocate(InfoType X)
+{
+    Address P = (Address)malloc(sizeof(ElmStack));
+    if (P != Nil)
+    {
+        Info(P) = X;
+        Next(P) = Nil;
+    }
+    return P;
+}
+ 
+void DeAllocate(Address P)
+{
+    free(P);
+}
+ 
+void Push(Stack *S, Address P)
+{
+    Next(P) = Top(*S);
+    Top(*S) = P;
+    Count(*S)++;
+}
+ 
+void Pop(Stack *S, Address *P)
+{
+    *P = Top(*S);
+    Top(*S) = Next(*P);
+    Count(*S)--;
+}
+
 void ViewStack(Stack S)
 {
     Address P;
