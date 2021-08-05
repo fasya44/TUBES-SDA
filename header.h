@@ -1,60 +1,52 @@
-#define stack_H
+#ifndef HEADER_H_INCLUDED
+#define HEADER_H_INCLUDED
+ 
+#define Info(P)  (P)->Info
+#define Next(P)  (P)->Next
+#define Top(S)   (S).Top
+#define Max(S)   (S).Max
+#define Count(S) (S).Count
+#define Nil     NULL
+ 
+#define bool unsigned short int
+#define False 0
+#define True  !False
+ 
 #include <stdio.h>
-#include "boolean.h"
-#define Nil 0 /* Nil adalah stack dengan elemen kosong */
-#define MaxEl 10
-typedef int infotype;
-typedef int address;
-
-/* indeks tabel */
-/* Versi I : dengan menyimpan tabel dan alamat top secara eksplisit */
-typedef struct { 
-	infotype T[MaxEl+1]; /* tabel penyimpan elemen */
-	address TOP;
-/* alamat TOP: elemen puncak */
+#include <stdlib.h>
+#include <conio.h>
+ 
+// infotype yang ada pada elemen
+typedef int InfoType;
+ 
+// membuat elemen stack untuk single link list
+typedef struct tElmStack *Address;
+typedef struct tElmStack {
+    InfoType Info;
+    Address  Next;
+} ElmStack;
+ 
+// list
+typedef struct {
+    Address Top;
+    int     Count;
 } Stack;
-
-
-/* Definisi akses dengan Selektor : */
-
-void FillSrc(Stack *S);
-/* I.S. sembarang; */
-/* F.S. Membuat sebuah stack S yang kosonq berkapasitas MaxEl */
-/* jadi indeksnya antara 1.. MaxEl+l karena O tidak dipakai */
-/* Ciri stack kosong : TOP bernilai Nil */
-/**** Predikat Untuk test keadaan KOLEKSI */
-boolean IsEmpty (Stack S);
-/* Mengirim true jika Stack kosong: lihat definisi di atas */
-boolean IsFull(Stack S);
-/* Mengirim true jika tabel penampung nilai elemen stack penuh */
-/**** Menambahkan sebuah elemen ke Stack *****/
-
-void Push (Stack *S, infotype X);
-/* Menambahkan X sebagai elemen Stack S. */
-/* I.S. S mungkin kosong, tabel penampung elemen stack TTDAK penuh */
-/* F.S. X menjadi TOP yang baru,TOP bertambah 1 */
-/**** Menqhapus sebuah elemen Stack *****/
-
-void Pop (Stack *S, infotype *X);
-/* Menghapus X dari Stack S. */
-/* I.S. S tidak mungkin kosong */
-/* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang l */
-
-void displaylevel(int level);
-/* Menampilan level X dari Stack S. */
-/* I.S. S tidak mungkin kosong */
-/* F.S. X adalah nilai elemen level */
-
-void display();
-/* Menampilan function displaylevel yang telah dipanggil */
-/* I.S. S tidak mungkin kosong */
-/* F.S. X adalah nilai elemen level */
-
-int gameWinCondition();
-/* Menampilan X dari Stack S sesuai dengan aturan main. */
-/* I.S. S tidak mungkin kosong */
-/* F.S. X adalah nilai elemen TOP */
-
-/* untuk aplikasi MainMove */
-
-void towers(int, char, char, char);
+ 
+void CreateStack(Stack *S);
+// I.S. Sembarang
+// F.S. Terbentuk Stack kosong
+ 
+bool IsEmpty(Stack S);
+// Menghasilkan True jika Stack kosong, dan False jika Stack tidak kosong
+ 
+Address Allocate(InfoType X);
+// Menghasilkan Address dari alokasi sebuah elemen dengan InfoType X
+// Jika alokasi berhasil maka nilai Address tidak Nil dan jika gagal nilai Address Nil
+ 
+void DeAllocate(Address P);
+// I.S. P terdefinisi
+// F.S. Memori yang digunakan oleh P dikembalikan ke sistem
+ 
+void Push(Stack *S, Address P);
+// I.S. Sembarang, P terdefinisi
+// F.S. Menempatkan P pada Top dari S
